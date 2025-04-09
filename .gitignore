@@ -1,4 +1,5 @@
 .DS_store
 data/
 mlruns/
-results/
+app/t5_model/
+app/__pycache__/

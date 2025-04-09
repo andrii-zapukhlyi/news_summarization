@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/favicon.ico">
+    <title>News summaries</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(12, 14, 18);
+    color: #ecf0f1;
+    padding: 20px;
+    background-image: url('static/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(28, 29, 36);
+    border-radius: 10px;
+    position: relative;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #ecf0f1;
+    text-align: center;
+}
+
+.description {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #bdc3c7;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 20px;
+    background-color: rgb(100, 150, 127);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+textarea::placeholder {
+    color: white;
+}
+
+
+.submit-btn {
+    background-color: rgb(1, 166, 106);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: rgb(1, 94, 60);
+}
+
+.result {
+    display: none;
+    margin-top: 30px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #ecf0f1;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Summarise Your Article</h1>
+        <p class="description">Test</p>
+        
+        <form id="prediction-form" action="/predict" method="post">
+            <label for="model">Choose a model:</label>
+            <select name="model" id="model">
+                <option value="bart">BART</option>
+                <option value="t5">T5</option>
+            </select><br><br>
+    
+            <label for="data">Input data:</label><br>
+            <textarea id="data" name="data" rows="20" cols="50"></textarea><br><br>
+    
+            <input class = "submit-btn" type="submit" value="Summarise">
+        </form>
+
+        <div id="prediction-result" class="result">
+
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('prediction-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+    
+            const data = new FormData(form);
+    
+            const formData = {
+                model: data.get('model'),
+                data: data.get('data'),
+            };
+    
+
+            const response = await fetch(`${window.location.origin}/predict`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+    
+            const result = await response.json();
+            const resultDiv = document.getElementById('prediction-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<h3>${result.prediction}</h3>`;
+        });
+    </script>
+</body>
+</html>
