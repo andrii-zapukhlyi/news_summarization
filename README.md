@@ -21,9 +21,7 @@ The U.S. and China are in an "unprecedented and expensive game of chicken," says
 - **T5**: ROUGE-1 = 0.39, ROUGE-2 = 0.37, ROUGE-L = 0.39
 - **BART**: ROUGE-1 = 0.27, ROUGE-2 = 0.23, ROUGE-L = 0.17
 
-```
-ROUGE measures word overlap. If two texts express the same meaning but use different wording, the ROUGE score may still be low. Therefore, it's crucial for summaries to be evaluated by a human to ensure they are genuinely meaningful.
-```
+```ROUGE measures word overlap. If two texts express the same meaning but use different wording, the ROUGE score may still be low. Therefore, it's crucial for summaries to be evaluated by a human to ensure they are genuinely meaningful.```
 
 ## Conclusion
 This project successfully developed a news summarization system using Deep Learning models. By training the T5-Small model with 60 million parameters, I achieved results comparable to the larger BART-Large-CNN model with 400 million parameters. Additionally, I explored LSTM and LSTM with attention models to compare traditional and Transformer-based architectures. The results demonstrate that Transformer models can generate concise, informative summaries, reducing reading time without losing key content.
