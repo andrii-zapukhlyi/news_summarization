@@ -9,7 +9,8 @@
 - Front-end: `HTML`, `CSS`, `JavaScript` 
 - Containerization: `Docker`
 
-## Demo 
+## Demo
+<img src = "demo.png">
 
 
 #### Using Docker Image (CPU-only inference)
