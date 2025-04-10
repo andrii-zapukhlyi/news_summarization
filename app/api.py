@@ -7,9 +7,8 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 import torch, evaluate
 rouge_score = evaluate.load("rouge")
 
-t5_model = AutoModelForSeq2SeqLM.from_pretrained("t5_model/checkpoint-9333")
+t5_model = AutoModelForSeq2SeqLM.from_pretrained("b3nett/t5_news_summarizer")
 tokenizer = AutoTokenizer.from_pretrained("t5-small")
-
 bart_model = pipeline("summarization", model="facebook/bart-large-cnn")
 
 def t5_summarize(text, max_input_length=512, max_output_length=128):
