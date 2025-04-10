@@ -18,15 +18,14 @@ A Docker image is available on **DockerHub**. You can pull and run the container
 docker pull b3nett/news_summarizer_app:latest
 docker run -p 80:80 b3nett/news_summarizer_app:latest
 ```
-The container may take up to 2 minutes to start due to downloading and caching Hugging Face models and metrics. 
+The container may take up to 4 minutes to start due to downloading and caching Hugging Face models and metrics. 
 Then, open `http://localhost:80` in your browser. 
 
-#### Using FastAPI (Supports CUDA inference)
+#### Using FastAPI (GPU inference available if you use the PyTorch version with CUDA support)
 If you prefer not to use Docker, you can clone the repository and run the API with **Uvicorn**:
 ```
 git clone https://github.com/andrii-zapukhlyi/news_summarization.git
 cd news_summarization/app
-pip install --no-cache-dir -r requirements.txt
 uvicorn api:app --host 0.0.0.0 --port 80
 ```
 Then, open `http://localhost:80` in your browser. 
