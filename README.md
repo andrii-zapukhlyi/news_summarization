@@ -12,7 +12,7 @@
 ## Demo 
 <img src = "demo.png">
 
-#### Using Docker Image
+#### Using Docker Image (CPU-only inference)
 A Docker image is available on **DockerHub**. You can pull and run the container on your machine using the following commands:
 ```
 docker pull b3nett/news_summarizer_app:latest
@@ -21,11 +21,11 @@ docker run -p 80:80 b3nett/news_summarizer_app:latest
 The container may take up to 2 minutes to start due to downloading and caching Hugging Face models and metrics. 
 Then, open `http://localhost:80` in your browser. 
 
-#### Using FastAPI
+#### Using FastAPI (Supports CUDA inference)
 If you prefer not to use Docker, you can clone the repository and run the API with **Uvicorn**:
 ```
-git clone https://github.com/andrii-zapukhlyi/crypto_market_sentiment.git
-cd crypto_market_sentiment/app
+git clone https://github.com/andrii-zapukhlyi/news_summarization.git
+cd news_summarization/app
 pip install --no-cache-dir -r requirements.txt
 uvicorn api:app --host 0.0.0.0 --port 80
 ```
