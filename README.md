@@ -10,7 +10,7 @@
 - Containerization: `Docker`
 
 ## Demo 
-<img src = "demo.png">
+
 
 #### Using Docker Image (CPU-only inference)
 A Docker image is available on **DockerHub**. You can pull and run the container on your machine using the following commands:
