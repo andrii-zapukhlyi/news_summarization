@@ -1,4 +1,39 @@
 # Reducing News Reading Time with Transformer-Based Summaries
+## Technologies Used
+
+- Python: `numpy`, `pandas`, `matplotlib`, `seaborn`, 
+- NLP preprocessing: `nltk`, `spacy`, `re`
+- Neural Networks: `PyTorch` (LSTM, Attention Mechanism)
+- Transformers: `transformers`, `pipeline`, `AutoTokenizer`, `evaluate`
+- Back-end: `FastAPI`, `uvicorn`  
+- Front-end: `HTML`, `CSS`, `JavaScript` 
+- Containerization: `Docker`
+
+## Demo 
+<img src = "demo.png">
+
+#### Using Docker Image
+A Docker image is available on **DockerHub**. You can pull and run the container on your machine using the following commands:
+```
+docker pull b3nett/news_summarizer_app:latest
+docker run --gpus all -p 80:80 b3nett/news_summarizer_app 
+```
+The container may take up to 2 minutes to start due to downloading and caching Hugging Face models and metrics. 
+Then, open `http://localhost:80` in your browser. 
+
+For devices without CUDA:
+```
+docker run -p 80:80 b3nett/news_summarizer_app:latest
+```
+
+#### Using FastAPI
+If you prefer not to use Docker, you can clone the repository and run the API with **Uvicorn**:
+```
+git clone https://github.com/andrii-zapukhlyi/news_summarization.git
+cd news_summarization/app
+uvicorn api:app --host 0.0.0.0 --port 80
+```
+Then, open `http://localhost:80` in your browser. 
 
 ## Objective
 In today’s fast-paced world, a constant stream of news makes it difficult for people to stay informed—especially about political events—without spending a lot of time reading full articles. The goal is to help users quickly grasp key information without sacrificing understanding.

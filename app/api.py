@@ -1,17 +1,19 @@
-from fastapi import FastAPI, Form
+from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
-import torch
+import torch, evaluate
+rouge_score = evaluate.load("rouge")
 
 t5_model = AutoModelForSeq2SeqLM.from_pretrained("t5_model/checkpoint-9333")
 tokenizer = AutoTokenizer.from_pretrained("t5-small")
 
 bart_model = pipeline("summarization", model="facebook/bart-large-cnn")
 
-def t5_summarize(text, max_input_length=512, max_output_length=128, device="cuda"):
+def t5_summarize(text, max_input_length=512, max_output_length=128):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     t5_model.to(device)
     inputs = tokenizer(text, return_tensors="pt", max_length=max_input_length, truncation=True)
     inputs = {key: value.to(device) for key, value in inputs.items()}
@@ -59,3 +61,15 @@ async def predict(input_data: InputData):
         summary = "Please select a model."
     
     return {"prediction": summary}
+
+class RougeData(BaseModel):
+    x: str
+    y: str
+
+@app.post("/rouge")
+async def rouge(rouge_data: RougeData):
+    x = rouge_data.x
+    y = rouge_data.y
+    rouge_scores = rouge_score.compute(predictions=[x], references=[y])
+    rounded_rouge_scores = {key: round(value, 2) for key, value in rouge_scores.items()}
+    return {"rouge_score": rounded_rouge_scores}
